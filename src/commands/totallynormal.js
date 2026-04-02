@@ -5,6 +5,7 @@ const {
 
 const { fetchStats } = require("../api/hypixel");
 const { buildEmbed } = require("../utils/embed");
+const { cache, CACHE_TIME } = require("../utils/cache");
 
 module.exports = {
 
@@ -25,10 +26,30 @@ module.exports = {
 
         let username = interaction.options.getString("player");
 
-        const stats = await fetchStats(username);
+        const now = Date.now();
+        let stats;
+
+        if (cache.has(username)) {
+            const cached = cache.get(username);
+
+            if (now - cached.timestamp < CACHE_TIME) {
+                stats = cached.data;
+            } else {
+                cache.delete(username); // 期限切れ
+            }
+        }
 
         if (!stats) {
-            return interaction.editReply("Player not found.");
+            stats = await fetchStats(username);
+
+            if (!stats) {
+                return interaction.editReply("Player not found.");
+            }
+
+            cache.set(username, {
+                data: stats,
+                timestamp: now
+            });
         }
 
         const embed = buildEmbed(username, "totallynormal", stats);
