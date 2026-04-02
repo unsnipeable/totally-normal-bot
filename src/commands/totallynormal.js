@@ -16,7 +16,8 @@ module.exports = {
                 .setName("player")
                 .setDescription("Minecraft username")
                 .setRequired(true)
-        ),
+        )
+        .setDMPermission(true),
 
     async execute(interaction) {
 

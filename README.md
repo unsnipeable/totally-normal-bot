@@ -14,3 +14,6 @@ The \*\*FIRST\*\* Discord bot displays a player's Totally Normal Mode (Hypixel B
 
 `/play <player>`
 
+# preview
+
+![image](./preview.png)

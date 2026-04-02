@@ -6,7 +6,8 @@ module.exports = {
 
     data: new SlashCommandBuilder()
         .setName("play")
-        .setDescription("Show play command"),
+        .setDescription("Show play command")
+        .setDMPermission(true),
 
     async execute(interaction) {
 
