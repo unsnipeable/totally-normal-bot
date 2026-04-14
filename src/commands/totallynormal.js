@@ -35,7 +35,7 @@ module.exports = {
             if (now - cached.timestamp < CACHE_TIME) {
                 stats = cached.data;
             } else {
-                cache.delete(username); // 期限切れ
+                cache.delete(username);
             }
         }
 
